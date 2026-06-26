@@ -1,0 +1,201 @@
+<% content_for :head do %>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIINfQjQ6UHZiYnUslN2n7rn+o0AgqU4d+Y="
+    crossorigin=""
+  >
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+    defer
+  ></script>
+<% end %>
+
+<section
+  class="w-full space-y-6"
+  data-library-latitude="<%= @library[:latitude] %>"
+  data-library-longitude="<%= @library[:longitude] %>"
+  data-library-name="<%= @library[:name] %>"
+>
+  <div class="flex flex-col gap-4 border-b border-neutral-200 pb-5 md:flex-row md:items-end md:justify-between">
+    <div>
+      <p class="text-sm font-medium text-neutral-500">INFO4235 Midterm</p>
+      <h1 class="mt-2 text-4xl font-bold text-neutral-900">KPU Library Distance</h1>
+      <p class="mt-3 max-w-2xl text-neutral-600">
+        Shows your current location on a map and calculates the distance to the KPU Surrey Library.
+      </p>
+    </div>
+
+    <button
+      id="location-button"
+      class="rounded-md bg-neutral-900 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-neutral-700"
+      type="button"
+    >
+      Use my location
+    </button>
+  </div>
+
+  <div class="grid gap-5 lg:grid-cols-[1fr_320px]">
+    <div class="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm">
+      <div id="map" class="h-[520px] w-full"></div>
+    </div>
+
+    <aside class="space-y-4">
+      <div class="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm">
+        <p class="text-sm font-medium text-neutral-500">Distance</p>
+        <p id="distance-value" class="mt-3 text-4xl font-bold text-neutral-900">-- km</p>
+        <p id="distance-note" class="mt-2 text-sm text-neutral-600">
+          Click the button to calculate the distance from your current location.
+        </p>
+      </div>
+
+      <div class="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm">
+        <p class="text-sm font-medium text-neutral-500">Destination</p>
+        <p class="mt-3 font-semibold text-neutral-900"><%= @library[:name] %></p>
+        <p class="mt-2 text-sm text-neutral-600">
+          Latitude <%= @library[:latitude] %>, longitude <%= @library[:longitude] %>
+        </p>
+      </div>
+
+      <div class="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm">
+        <p class="text-sm font-medium text-neutral-500">Status</p>
+        <p id="status-message" class="mt-3 text-sm text-neutral-700">
+          Waiting for location permission.
+        </p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script>
+  window.addEventListener("load", function () {
+    var page = document.querySelector("[data-library-latitude]");
+    var library = {
+      name: page.dataset.libraryName,
+      latitude: Number(page.dataset.libraryLatitude),
+      longitude: Number(page.dataset.libraryLongitude)
+    };
+
+    var map = L.map("map").setView([library.latitude, library.longitude], 13);
+    var userMarker = null;
+    var routeLine = null;
+
+    var statusMessage = document.getElementById("status-message");
+    var distanceValue = document.getElementById("distance-value");
+    var distanceNote = document.getElementById("distance-note");
+    var locationButton = document.getElementById("location-button");
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    L.circleMarker([library.latitude, library.longitude], {
+      color: "#7f1d1d",
+      fillColor: "#b91c1c",
+      fillOpacity: 0.9,
+      radius: 11,
+      weight: 3
+    })
+      .addTo(map)
+      .bindTooltip(library.name, {
+        direction: "top",
+        offset: [0, -10],
+        permanent: true
+      });
+
+    setTimeout(function () {
+      map.invalidateSize();
+    }, 100);
+
+    locationButton.addEventListener("click", function () {
+      if (!navigator.geolocation) {
+        statusMessage.textContent = "This browser does not support geolocation.";
+        return;
+      }
+
+      statusMessage.textContent = "Finding your location...";
+
+      navigator.geolocation.getCurrentPosition(showPosition, showError, {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      });
+    });
+
+    function showPosition(position) {
+      var userLocation = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      };
+
+      updateMap(userLocation);
+      updateDistance(userLocation);
+    }
+
+    function updateMap(userLocation) {
+      var userPoint = [userLocation.latitude, userLocation.longitude];
+      var libraryPoint = [library.latitude, library.longitude];
+
+      if (userMarker) {
+        userMarker.setLatLng(userPoint);
+      } else {
+        userMarker = L.circleMarker(userPoint, {
+          color: "#0f172a",
+          fillColor: "#2563eb",
+          fillOpacity: 0.9,
+          radius: 8,
+          weight: 2
+        }).addTo(map).bindPopup("Your location");
+      }
+
+      if (routeLine) {
+        routeLine.setLatLngs([userPoint, libraryPoint]);
+      } else {
+        routeLine = L.polyline([userPoint, libraryPoint], {
+          color: "#111827",
+          weight: 4
+        }).addTo(map);
+      }
+
+      map.fitBounds([userPoint, libraryPoint], {
+        padding: [40, 40]
+      });
+    }
+
+    function updateDistance(userLocation) {
+      var url = "/api/distance?latitude=" +
+        encodeURIComponent(userLocation.latitude) +
+        "&longitude=" +
+        encodeURIComponent(userLocation.longitude);
+
+      fetch(url)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          distanceValue.textContent = data.distance_km + " km";
+          distanceNote.textContent = "Calculated from your current browser location.";
+          statusMessage.textContent = "Location found and distance updated.";
+        })
+        .catch(function () {
+          statusMessage.textContent = "The map loaded, but the distance request failed.";
+        });
+    }
+
+    function showError(error) {
+      if (error.code === error.PERMISSION_DENIED) {
+        statusMessage.textContent = "Location permission was denied.";
+      } else if (error.code === error.POSITION_UNAVAILABLE) {
+        statusMessage.textContent = "Your location is currently unavailable.";
+      } else if (error.code === error.TIMEOUT) {
+        statusMessage.textContent = "Location request timed out.";
+      } else {
+        statusMessage.textContent = "Unable to read your location.";
+      }
+    }
+  });
+</script>

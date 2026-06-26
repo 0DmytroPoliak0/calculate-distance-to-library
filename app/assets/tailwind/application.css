@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@layer components {
+  .leaflet-container {
+    overflow: hidden;
+  }
+
+  .leaflet-pane,
+  .leaflet-tile,
+  .leaflet-marker-icon,
+  .leaflet-marker-shadow,
+  .leaflet-tile-container,
+  .leaflet-pane > svg,
+  .leaflet-pane > canvas,
+  .leaflet-zoom-box,
+  .leaflet-image-layer,
+  .leaflet-layer {
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+
+  .leaflet-container img {
+    max-width: none;
+  }
+
+  .leaflet-tile {
+    height: 256px;
+    width: 256px;
+  }
+
+  .leaflet-tile-pane {
+    z-index: 200;
+  }
+
+  .leaflet-overlay-pane {
+    z-index: 400;
+  }
+
+  .leaflet-shadow-pane {
+    z-index: 500;
+  }
+
+  .leaflet-marker-pane {
+    z-index: 600;
+  }
+
+  .leaflet-tooltip-pane {
+    z-index: 650;
+  }
+
+  .leaflet-popup-pane {
+    z-index: 700;
+  }
+
+  .leaflet-top,
+  .leaflet-bottom {
+    pointer-events: none;
+    position: absolute;
+    z-index: 1000;
+  }
+
+  .leaflet-top {
+    top: 0;
+  }
+
+  .leaflet-bottom {
+    bottom: 0;
+  }
+
+  .leaflet-left {
+    left: 0;
+  }
+
+  .leaflet-right {
+    right: 0;
+  }
+
+  .leaflet-control {
+    pointer-events: auto;
+    position: relative;
+    z-index: 800;
+  }
+
+  .leaflet-left .leaflet-control {
+    margin-left: 10px;
+  }
+
+  .leaflet-top .leaflet-control {
+    margin-top: 10px;
+  }
+
+  .leaflet-control-zoom {
+    background: white;
+    border: 1px solid rgb(212 212 212);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.16);
+    overflow: hidden;
+  }
+
+  .leaflet-control-zoom a {
+    display: block;
+    font-weight: 700;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 30px;
+  }
+
+  .leaflet-control-zoom a + a {
+    border-top: 1px solid rgb(229 229 229);
+  }
+
+  .leaflet-control-attribution {
+    background: rgb(255 255 255 / 0.8);
+    font-size: 11px;
+    padding: 0 6px;
+  }
+
+  .leaflet-tooltip {
+    background: white;
+    border: 1px solid rgb(212 212 212);
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.16);
+    color: rgb(23 23 23);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 8px;
+    position: absolute;
+    white-space: nowrap;
+  }
+}
