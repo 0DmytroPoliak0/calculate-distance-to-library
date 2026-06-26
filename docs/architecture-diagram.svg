@@ -1,78 +1,79 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="680" viewBox="0 0 1100 680">
   <defs>
-    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
-      <path d="M2,2 L10,6 L2,10 Z" fill="#111827" />
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#111111" />
     </marker>
     <style>
-      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
-      .subtitle { font: 400 18px Arial, sans-serif; fill: #4b5563; }
-      .box { fill: #ffffff; stroke: #d1d5db; stroke-width: 2; rx: 12; }
-      .box-dark { fill: #111827; stroke: #111827; stroke-width: 2; rx: 12; }
-      .label { font: 700 20px Arial, sans-serif; fill: #111827; }
-      .label-light { font: 700 20px Arial, sans-serif; fill: #ffffff; }
-      .text { font: 400 16px Arial, sans-serif; fill: #4b5563; }
-      .text-light { font: 400 16px Arial, sans-serif; fill: #e5e7eb; }
-      .arrow { stroke: #111827; stroke-width: 3; fill: none; marker-end: url(#arrow); }
-      .lane { font: 700 15px Arial, sans-serif; fill: #6b7280; letter-spacing: 1px; }
+      .title { font: 700 30px Arial, sans-serif; fill: #111111; }
+      .note { font: 400 16px Arial, sans-serif; fill: #333333; }
+      .package { fill: #ffffff; stroke: #111111; stroke-width: 2; }
+      .package-title { font: 700 17px Arial, sans-serif; fill: #111111; }
+      .box { fill: #ffffff; stroke: #111111; stroke-width: 2; }
+      .box-title { font: 700 18px Arial, sans-serif; fill: #111111; }
+      .box-text { font: 400 15px Arial, sans-serif; fill: #333333; }
+      .arrow { stroke: #111111; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .arrow-label { font: 400 14px Arial, sans-serif; fill: #111111; }
     </style>
   </defs>
 
-  <rect width="1200" height="720" fill="#f9fafb" />
+  <rect width="1100" height="680" fill="#ffffff" />
 
-  <text x="60" y="70" class="title">KPU Library Distance - Application Architecture</text>
-  <text x="60" y="105" class="subtitle">Ruby on Rails MVC app with browser geolocation, Leaflet map, and distance API</text>
+  <text x="60" y="60" class="title">KPU Library Distance - UML Style Architecture</text>
+  <text x="60" y="90" class="note">Simple Rails MVC application using browser geolocation and Leaflet/OpenStreetMap.</text>
 
-  <text x="90" y="155" class="lane">CLIENT / BROWSER</text>
-  <text x="720" y="155" class="lane">RAILS SERVER</text>
+  <!-- Browser package -->
+  <rect x="60" y="130" width="420" height="420" class="package" />
+  <rect x="60" y="130" width="130" height="34" class="package" />
+  <text x="76" y="153" class="package-title">Browser</text>
 
-  <rect x="60" y="180" width="260" height="120" class="box-dark" />
-  <text x="90" y="220" class="label-light">User Browser</text>
-  <text x="90" y="252" class="text-light">Clicks "Use my location"</text>
-  <text x="90" y="276" class="text-light">Receives map and distance</text>
+  <rect x="105" y="205" width="300" height="90" class="box" />
+  <text x="130" y="235" class="box-title">Home Page View</text>
+  <text x="130" y="262" class="box-text">home/index.html.erb</text>
+  <text x="130" y="284" class="box-text">Button, status, map area</text>
 
-  <rect x="60" y="390" width="260" height="120" class="box" />
-  <text x="90" y="430" class="label">Geolocation API</text>
-  <text x="90" y="462" class="text">Reads current latitude</text>
-  <text x="90" y="486" class="text">and longitude with permission</text>
+  <rect x="105" y="350" width="300" height="90" class="box" />
+  <text x="130" y="380" class="box-title">Geolocation API</text>
+  <text x="130" y="407" class="box-text">Gets user latitude</text>
+  <text x="130" y="429" class="box-text">and longitude after permission</text>
 
-  <rect x="390" y="180" width="260" height="120" class="box" />
-  <text x="420" y="220" class="label">Rails View</text>
-  <text x="420" y="252" class="text">home/index.html.erb</text>
-  <text x="420" y="276" class="text">Map UI and JavaScript</text>
+  <!-- Rails package -->
+  <rect x="610" y="130" width="420" height="420" class="package" />
+  <rect x="610" y="130" width="150" height="34" class="package" />
+  <text x="626" y="153" class="package-title">Rails MVC App</text>
 
-  <rect x="390" y="390" width="260" height="120" class="box" />
-  <text x="420" y="430" class="label">Leaflet Map</text>
-  <text x="420" y="462" class="text">OpenStreetMap tiles</text>
-  <text x="420" y="486" class="text">Markers and route line</text>
+  <rect x="670" y="190" width="300" height="80" class="box" />
+  <text x="695" y="220" class="box-title">HomeController</text>
+  <text x="695" y="247" class="box-text">Renders the main page</text>
 
-  <rect x="720" y="180" width="260" height="120" class="box" />
-  <text x="750" y="220" class="label">Rails Controller</text>
-  <text x="750" y="252" class="text">Api::DistancesController</text>
-  <text x="750" y="276" class="text">GET /api/distance</text>
+  <rect x="670" y="305" width="300" height="90" class="box" />
+  <text x="695" y="335" class="box-title">Api::DistancesController</text>
+  <text x="695" y="362" class="box-text">GET /api/distance</text>
+  <text x="695" y="384" class="box-text">Returns JSON distance</text>
 
-  <rect x="720" y="390" width="260" height="120" class="box" />
-  <text x="750" y="430" class="label">Rails Model</text>
-  <text x="750" y="462" class="text">LocationDistance</text>
-  <text x="750" y="486" class="text">Haversine formula</text>
+  <rect x="670" y="430" width="300" height="80" class="box" />
+  <text x="695" y="460" class="box-title">LocationDistance</text>
+  <text x="695" y="487" class="box-text">Haversine formula in Ruby</text>
 
-  <rect x="455" y="585" width="290" height="85" class="box-dark" />
-  <text x="490" y="622" class="label-light">Distance Result</text>
-  <text x="490" y="650" class="text-light">Kilometers to KPU Surrey Library</text>
+  <!-- External service -->
+  <rect x="325" y="585" width="450" height="60" class="box" />
+  <text x="370" y="622" class="box-title">OpenStreetMap Tiles via Leaflet</text>
 
-  <path d="M320 240 H390" class="arrow" />
-  <path d="M190 300 V390" class="arrow" />
-  <path d="M320 450 H390" class="arrow" />
-  <path d="M650 240 H720" class="arrow" />
-  <path d="M850 300 V390" class="arrow" />
-  <path d="M720 450 H650" class="arrow" />
-  <path d="M520 510 V585" class="arrow" />
-  <path d="M720 450 C660 520 650 545 620 585" class="arrow" />
-  <path d="M455 628 C350 625 260 565 210 510" class="arrow" />
+  <!-- Arrows -->
+  <path d="M 405 250 C 500 210, 565 210, 670 225" class="arrow" />
+  <text x="475" y="205" class="arrow-label">initial page request</text>
 
-  <text x="340" y="225" class="text">renders page</text>
-  <text x="225" y="360" class="text">asks permission</text>
-  <text x="325" y="435" class="text">coordinates</text>
-  <text x="665" y="225" class="text">fetch request</text>
-  <text x="870" y="360" class="text">calculate</text>
-  <text x="645" y="435" class="text">JSON</text>
+  <path d="M 255 295 L 255 350" class="arrow" />
+  <text x="275" y="326" class="arrow-label">asks permission</text>
+
+  <path d="M 405 395 C 500 350, 565 345, 670 350" class="arrow" />
+  <text x="455" y="335" class="arrow-label">latitude + longitude</text>
+
+  <path d="M 820 395 L 820 430" class="arrow" />
+  <text x="840" y="418" class="arrow-label">calculate</text>
+
+  <path d="M 670 470 C 565 500, 505 500, 405 250" class="arrow" />
+  <text x="455" y="530" class="arrow-label">JSON: distance in km</text>
+
+  <path d="M 255 295 C 335 500, 425 560, 510 585" class="arrow" />
+  <text x="210" y="575" class="arrow-label">loads map tiles</text>
 </svg>
