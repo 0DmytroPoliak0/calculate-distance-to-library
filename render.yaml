@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: calculate-distance-to-library
+    runtime: ruby
+    plan: free
+    buildCommand: ./bin/render-build.sh
+    startCommand: ./bin/rails server
+    healthCheckPath: /up
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: RACK_ENV
+        value: production
+      - key: WEB_CONCURRENCY
+        value: 2

@@ -53,13 +53,16 @@ bin/rails test
 
 ## Deploy
 
-For Render, use:
+The repository includes `render.yaml`, so Render can create the web service
+from a Blueprint. This app does not use a database.
+
+For manual Render setup, use:
 
 - Build command: `bin/render-build.sh`
 - Start command: `bin/rails server`
 
 Set `RAILS_MASTER_KEY` from the local `config/master.key` file when Render asks
-for environment variables.
+for environment variables. Use `/up` as the health check path.
 
 ## API
 
