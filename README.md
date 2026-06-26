@@ -2,8 +2,8 @@
 
 INFO4235 midterm web application.
 
-The app shows the user's current location on a map and calculates the distance
-to the KPU Surrey Library in kilometers.
+The app dynamically shows the user's current location on a map and calculates
+the distance to the KPU Surrey Library in kilometers.
 
 ## Project Scaffold
 
