@@ -88,6 +88,7 @@
     var distanceNote = document.getElementById("distance-note");
     var locationButton = document.getElementById("location-button");
 
+    // Map setup stays on the client because Leaflet runs in the browser.
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution: "&copy; OpenStreetMap contributors"
@@ -111,6 +112,7 @@
       map.invalidateSize();
     }, 100);
 
+    // Ask for location only after the user clicks, so the page does not feel invasive.
     locationButton.addEventListener("click", function () {
       if (!navigator.geolocation) {
         statusMessage.textContent = "This browser does not support geolocation.";
@@ -136,6 +138,7 @@
       updateDistance(userLocation);
     }
 
+    // Keep map drawing separate from the distance API request.
     function updateMap(userLocation) {
       var userPoint = [userLocation.latitude, userLocation.longitude];
       var libraryPoint = [library.latitude, library.longitude];
@@ -166,6 +169,7 @@
       });
     }
 
+    // Rails calculates the distance so the formula is testable in Ruby.
     function updateDistance(userLocation) {
       var url = "/api/distance?latitude=" +
         encodeURIComponent(userLocation.latitude) +

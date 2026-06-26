@@ -1,6 +1,7 @@
 class LocationDistance
   EARTH_RADIUS_KM = 6371.0
 
+  # Fixed destination for the assignment.
   KPU_LIBRARY = {
     name: "KPU Surrey Library",
     latitude: 49.133000,
@@ -16,6 +17,7 @@ class LocationDistance
     latitude_change = end_latitude - start_latitude
     longitude_change = end_longitude - start_longitude
 
+    # Haversine formula. This gives a straight-line distance over the earth.
     a = Math.sin(latitude_change / 2)**2 +
         Math.cos(start_latitude) *
         Math.cos(end_latitude) *
