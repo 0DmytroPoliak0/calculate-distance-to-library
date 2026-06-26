@@ -38,6 +38,16 @@ Homebrew because the system Ruby is too old for Rails 8.
 bin/rails test
 ```
 
+## Deploy
+
+For Render, use:
+
+- Build command: `bin/render-build.sh`
+- Start command: `bin/rails server`
+
+Set `RAILS_MASTER_KEY` from the local `config/master.key` file when Render asks
+for environment variables.
+
 ## API
 
 ```text
