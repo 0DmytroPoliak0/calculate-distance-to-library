@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#111827" />
+    </marker>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #4b5563; }
+      .box { fill: #ffffff; stroke: #d1d5db; stroke-width: 2; rx: 12; }
+      .box-dark { fill: #111827; stroke: #111827; stroke-width: 2; rx: 12; }
+      .label { font: 700 20px Arial, sans-serif; fill: #111827; }
+      .label-light { font: 700 20px Arial, sans-serif; fill: #ffffff; }
+      .text { font: 400 16px Arial, sans-serif; fill: #4b5563; }
+      .text-light { font: 400 16px Arial, sans-serif; fill: #e5e7eb; }
+      .arrow { stroke: #111827; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .lane { font: 700 15px Arial, sans-serif; fill: #6b7280; letter-spacing: 1px; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="720" fill="#f9fafb" />
+
+  <text x="60" y="70" class="title">KPU Library Distance - Application Architecture</text>
+  <text x="60" y="105" class="subtitle">Ruby on Rails MVC app with browser geolocation, Leaflet map, and distance API</text>
+
+  <text x="90" y="155" class="lane">CLIENT / BROWSER</text>
+  <text x="720" y="155" class="lane">RAILS SERVER</text>
+
+  <rect x="60" y="180" width="260" height="120" class="box-dark" />
+  <text x="90" y="220" class="label-light">User Browser</text>
+  <text x="90" y="252" class="text-light">Clicks "Use my location"</text>
+  <text x="90" y="276" class="text-light">Receives map and distance</text>
+
+  <rect x="60" y="390" width="260" height="120" class="box" />
+  <text x="90" y="430" class="label">Geolocation API</text>
+  <text x="90" y="462" class="text">Reads current latitude</text>
+  <text x="90" y="486" class="text">and longitude with permission</text>
+
+  <rect x="390" y="180" width="260" height="120" class="box" />
+  <text x="420" y="220" class="label">Rails View</text>
+  <text x="420" y="252" class="text">home/index.html.erb</text>
+  <text x="420" y="276" class="text">Map UI and JavaScript</text>
+
+  <rect x="390" y="390" width="260" height="120" class="box" />
+  <text x="420" y="430" class="label">Leaflet Map</text>
+  <text x="420" y="462" class="text">OpenStreetMap tiles</text>
+  <text x="420" y="486" class="text">Markers and route line</text>
+
+  <rect x="720" y="180" width="260" height="120" class="box" />
+  <text x="750" y="220" class="label">Rails Controller</text>
+  <text x="750" y="252" class="text">Api::DistancesController</text>
+  <text x="750" y="276" class="text">GET /api/distance</text>
+
+  <rect x="720" y="390" width="260" height="120" class="box" />
+  <text x="750" y="430" class="label">Rails Model</text>
+  <text x="750" y="462" class="text">LocationDistance</text>
+  <text x="750" y="486" class="text">Haversine formula</text>
+
+  <rect x="455" y="585" width="290" height="85" class="box-dark" />
+  <text x="490" y="622" class="label-light">Distance Result</text>
+  <text x="490" y="650" class="text-light">Kilometers to KPU Surrey Library</text>
+
+  <path d="M320 240 H390" class="arrow" />
+  <path d="M190 300 V390" class="arrow" />
+  <path d="M320 450 H390" class="arrow" />
+  <path d="M650 240 H720" class="arrow" />
+  <path d="M850 300 V390" class="arrow" />
+  <path d="M720 450 H650" class="arrow" />
+  <path d="M520 510 V585" class="arrow" />
+  <path d="M720 450 C660 520 650 545 620 585" class="arrow" />
+  <path d="M455 628 C350 625 260 565 210 510" class="arrow" />
+
+  <text x="340" y="225" class="text">renders page</text>
+  <text x="225" y="360" class="text">asks permission</text>
+  <text x="325" y="435" class="text">coordinates</text>
+  <text x="665" y="225" class="text">fetch request</text>
+  <text x="870" y="360" class="text">calculate</text>
+  <text x="645" y="435" class="text">JSON</text>
+</svg>
