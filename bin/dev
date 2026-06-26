@@ -1,4 +1,17 @@
 #!/usr/bin/env sh
 
+APP_ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+PORTABLE_RUBY="/opt/homebrew/Library/Homebrew/vendor/portable-ruby/current/bin/ruby"
+
+if [ -x "$PORTABLE_RUBY" ]; then
+  RUBY_BIN="$PORTABLE_RUBY"
+else
+  RUBY_BIN="${RUBY_BIN:-ruby}"
+fi
+
+cd "$APP_ROOT"
+
 export PORT="${PORT:-3000}"
-exec bin/rails server -p "$PORT" "$@"
+export BUNDLE_PATH="${BUNDLE_PATH:-vendor/bundle}"
+
+exec "$RUBY_BIN" -S bundle exec bin/rails server -p "$PORT" "$@"

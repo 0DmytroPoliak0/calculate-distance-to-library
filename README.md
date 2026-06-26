@@ -29,6 +29,9 @@ bin/dev
 
 Open `http://127.0.0.1:3000`.
 
+On this Mac, `bin/dev` automatically uses the portable Ruby installed with
+Homebrew because the system Ruby is too old for Rails 8.
+
 ## Test
 
 ```sh
